@@ -31,7 +31,7 @@ class WorkspaceController extends Controller
     {
         // Eager-load all relationships needed for the workspace view
         $workspace->load([
-            'projects' => fn($q) => $q->withCount(['tasks', 'tasks as completed_tasks_count' => fn($q) => $q->where('status', 'completed')]),
+            'projects' => fn($q) => $q->withCount(['tasks', 'tasks as completed_tasks_count' => fn($q) => $q->where('tasks.status', 'completed')]),
             'users',
         ]);
 
@@ -44,8 +44,8 @@ class WorkspaceController extends Controller
         $stats = [
             'total_projects'    => $workspace->projects()->count(),
             'total_tasks'       => $workspace->tasks()->count(),
-            'completed_tasks'   => $workspace->tasks()->where('status', 'completed')->count(),
-            'in_progress_tasks' => $workspace->tasks()->where('status', 'in_progress')->count(),
+            'completed_tasks'   => $workspace->tasks()->where('tasks.status', 'completed')->count(),
+            'in_progress_tasks' => $workspace->tasks()->where('tasks.status', 'in_progress')->count(),
             'members'           => $workspace->users()->count(),
         ];
 

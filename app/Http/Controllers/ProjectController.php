@@ -18,8 +18,8 @@ class ProjectController extends Controller
         $projects = $workspace->projects()
             ->withCount([
                 'tasks',
-                'tasks as completed_tasks_count' => fn($q) => $q->where('status', 'completed'),
-                'tasks as in_progress_count'     => fn($q) => $q->where('status', 'in_progress'),
+                'tasks as completed_tasks_count' => fn($q) => $q->where('tasks.status', 'completed'),
+                'tasks as in_progress_count'     => fn($q) => $q->where('tasks.status', 'in_progress'),
             ])
             ->latest()
             ->get();
