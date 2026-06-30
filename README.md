@@ -1,59 +1,82 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# TaskCraft — Collaborative Project & Task Management Dashboard
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+TaskCraft is a modern, collaborative project and task management dashboard built with **Laravel 11** and styled with a custom **Vanilla CSS Glassmorphism Dark Mode**. 
 
-## About Laravel
+This repository was designed specifically to showcase clean backend architecture, performance optimization, and robust security scoping for a Laravel Developer internship position.
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+---
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+## 🚀 Key Features
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+* **Multi-Tenant Workspaces**: Users can create and collaborate within separate workspaces. Custom middleware scopes routes to prevent unauthorized workspace access.
+* **Workspace Roles & Permissions**: Role-based access control (Owner, Member, Viewer) configured on a many-to-many relationship using pivot tables.
+* **Interactive Kanban Board**: Drag-and-drop task workflow updates built using Vanilla Javascript and Laravel REST endpoints.
+* **Task Management**: Fully detailed task view including assignee updates, inline priority alterations, and due dates.
+* **Time Logging**: Track individual team contributions on tasks, calculated automatically and displayed dynamically.
+* **Live Activity Feed**: Workspace-wide audit log powered by a polymorphic relation structure logging real-time collaborative updates.
 
-## Learning Laravel
+---
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework. You can also check out [Laravel Learn](https://laravel.com/learn), where you will be guided through building a modern Laravel application.
+## 🛠️ Advanced Laravel Practices Showcased
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+1. **Performance Tuning (Eager Loading)**: Used `with()` and `withCount()` query eager loading to prevent $N+1$ database query loops, ensuring optimal loading speeds even with deep nested relationships.
+2. **Polymorphic Relationships**: Implemented a unified `ActivityLog` table that dynamically links to multiple model types (`Project`, `Task`, `TimeLog`) using Laravel's polymorphic morph mappings.
+3. **Form Request Validation**: Extracted all route inputs validation into dedicated Form Request classes to keep controllers lean and adhere to the Single Responsibility Principle.
+4. **Secure Route Scoping**: Implemented custom middleware (`EnsureUserInWorkspace`) to restrict resource visualization and manipulation strictly to workspace members.
+5. **Zero-Configuration Setup**: Utilizes an SQLite database out-of-the-box, allowing immediate execution without requiring local MySQL configuration.
 
-## Laravel Sponsors
+---
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+## 💻 Tech Stack
 
-### Premium Partners
+* **Backend**: PHP 8.2+ & Laravel 11.x (Eloquent ORM)
+* **Frontend**: HTML5, Vanilla CSS3 (Glassmorphism layout system), Vanilla JS (Drag & Drop, Ajax)
+* **Database**: SQLite (Zero configuration needed)
 
-- **[Vehikl](https://vehikl.com)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Redberry](https://redberry.international/laravel-development)**
-- **[Active Logic](https://activelogic.com)**
+---
 
-## Contributing
+## 🏁 Quick Start & Local Setup
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+### Prerequisites
+Ensure you have **PHP 8.2+** and **Composer** installed.
 
-## Code of Conduct
+### Installation Steps
+1. **Clone the repository**:
+   ```bash
+   git clone https://github.com/YOUR_USERNAME/taskcraft.git
+   cd taskcraft
+   ```
+2. **Install dependencies**:
+   ```bash
+   composer install
+   ```
+3. **Setup environment variables**:
+   ```bash
+   copy .env.example .env
+   ```
+4. **Generate application key**:
+   ```bash
+   php artisan key:generate
+   ```
+5. **Run migrations and seed mock database**:
+   ```bash
+   php artisan migrate:fresh --seed
+   ```
+6. **Start the local server**:
+   ```bash
+   php artisan serve
+   ```
+7. Visit **`http://127.0.0.1:8000`** in your browser.
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+---
 
-## Security Vulnerabilities
+## 🔑 Demo Credentials
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+To experience the pre-populated dashboard, log in with any of the following seeded user accounts:
 
-## License
-
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+| User | Email | Password | Role |
+|---|---|---|---|
+| **Demo User** | `demo@taskcraft.dev` | `password` | Owner |
+| **Alice Johnson** | `alice@taskcraft.dev` | `password` | Member |
+| **Bob Smith** | `bob@taskcraft.dev` | `password` | Member |
+| **Carol Lee** | `carol@taskcraft.dev` | `password` | Viewer |
