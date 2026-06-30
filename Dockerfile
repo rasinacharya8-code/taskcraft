@@ -16,10 +16,13 @@ WORKDIR /var/www
 COPY . .
 
 # Install PHP dependencies
+# Create the missing database file
+RUN mkdir -p database && touch database/database.sqlite
+
 RUN composer install --no-dev --optimize-autoloader
 
 # Expose the port Laravel will run on
 EXPOSE 8000
 
-# Start Laravel server using the environment variable port
-CMD php artisan serve --host=0.0.0.0 --port=$PORT
+# Run migrations, seeders, and start the server automatically on boot
+CMD php artisan migrate --force && php artisan db:seed --force && php artisan serve --host=0.0.0.0 --port=$PORT
